@@ -7,11 +7,14 @@
     depends_on:
       database:
         condition: service_healthy
+    ports:
+      - "8080:8080"
   database:
       image: postgres
       environment:
         POSTGRES_USER: bbqueue_db
         POSTGRES_PASSWORD: bbqueue_db
+        POSTGRES_DB: bbqueue
       volumes:
         - bbqueue_database:/var/lib/postgresql/data
       ports:
@@ -23,10 +26,13 @@
         start_period: 30s
         timeout: 10s
   queue:
-    image: rabbitmq
+    image: rabbitmq:management
     environment:
       RABBITMQ_DEFAULT_USER: bbqueue
       RABBITMQ_DEFAULT_PASS: bbqueue
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
 volumes:
   bbqueue_database:
