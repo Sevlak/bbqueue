@@ -16,6 +16,8 @@ public class Program
 
         builder.Services.AddSingleton<Queue>();
 
+
+
         var app = builder.Build();
 
         app.MapGet("/", () => "Hello World!");
@@ -28,7 +30,9 @@ public class Program
                 return Results.NotFound();
             }
 
-            return Results.Accepted("Solicitação aceita.");
+            q.Publish(voto.ParticipanteId.ToString());
+
+            return Results.Accepted();
         });
 
         app.Run();
