@@ -1,0 +1,11 @@
+﻿### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=JetBrains Rider
+
+### POST request to add votes
+
+POST http://localhost:8080/api/votos HTTP/1.1
+Content-Type: application/json
+
+{"ParticipanteId":1}
+
