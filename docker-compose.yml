@@ -1,0 +1,32 @@
+﻿services:
+  bbqueue:
+    image: bbqueue
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      database:
+        condition: service_healthy
+  database:
+      image: postgres
+      environment:
+        POSTGRES_USER: bbqueue_db
+        POSTGRES_PASSWORD: bbqueue_db
+      volumes:
+        - bbqueue_database:/var/lib/postgresql/data
+      ports:
+        - "5432:5432"
+      healthcheck:
+        test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+        interval: 10s
+        retries: 3
+        start_period: 30s
+        timeout: 10s
+  queue:
+    image: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: bbqueue
+      RABBITMQ_DEFAULT_PASS: bbqueue
+
+volumes:
+  bbqueue_database:
