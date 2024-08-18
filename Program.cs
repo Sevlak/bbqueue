@@ -20,7 +20,16 @@ public class Program
 
         var app = builder.Build();
 
-        app.MapGet("/", () => "Hello World!");
+        using (var serviceScope = app.Services.CreateScope())
+        {
+            var context = serviceScope.ServiceProvider.GetRequiredService<VotosContext>();
+
+            if(context.Database.GetPendingMigrations().Any())
+            {
+                context.Database.Migrate();
+            }
+        }
+
         app.MapPost("/api/votos", async (Voto voto, VotosContext context, Queue q) =>
         {
             var part = await context.Participantes.FindAsync(voto.ParticipanteId);
