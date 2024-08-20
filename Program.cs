@@ -16,7 +16,7 @@ public class Program
 
         builder.Services.AddSingleton<Queue>();
 
-
+        builder.Services.AddHostedService<Worker>();
 
         var app = builder.Build();
 
