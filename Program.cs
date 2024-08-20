@@ -9,7 +9,7 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddDbContext<VotosContext>(opt =>
+        builder.Services.AddDbContext<VotesContext>(opt =>
         {
             opt.UseNpgsql(builder.Configuration.GetConnectionString("Database"));
         });
@@ -22,7 +22,7 @@ public class Program
 
         using (var serviceScope = app.Services.CreateScope())
         {
-            var context = serviceScope.ServiceProvider.GetRequiredService<VotosContext>();
+            var context = serviceScope.ServiceProvider.GetRequiredService<VotesContext>();
 
             if(context.Database.GetPendingMigrations().Any())
             {
@@ -30,16 +30,16 @@ public class Program
             }
         }
 
-        app.MapPost("/api/votos", async (Voto voto, VotosContext context, Queue q) =>
+        app.MapPost("/api/votes", async (Vote vote, VotesContext context, Queue q) =>
         {
-            var part = await context.Participantes.FindAsync(voto.ParticipanteId);
+            var cont = await context.Contestants.FindAsync(vote.ContestantId);
 
-            if (part is null)
+            if (cont is null)
             {
                 return Results.NotFound();
             }
 
-            q.Publish(voto.ParticipanteId.ToString());
+            q.Publish(vote.ContestantId.ToString());
 
             return Results.Accepted();
         });

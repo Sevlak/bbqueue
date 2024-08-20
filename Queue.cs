@@ -17,12 +17,12 @@ public class Queue
         var connection = factory.CreateConnection();
         _channel = connection.CreateModel();
 
-        _channel.QueueDeclare("votos_queue", durable: false, exclusive: false, autoDelete: false, arguments: null);
+        _channel.QueueDeclare("votes_queue", durable: false, exclusive: false, autoDelete: false, arguments: null);
     }
 
     public void Publish(string message)
     {
         var body = Encoding.UTF8.GetBytes(message);
-        _channel.BasicPublish(string.Empty, "votos_queue", null, body);
+        _channel.BasicPublish(string.Empty, "votes_queue", null, body);
     }
 }

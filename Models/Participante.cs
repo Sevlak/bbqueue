@@ -1,8 +1,8 @@
 ﻿namespace BBQueue.Models;
 
-public class Participante
+public class Contestant
 {
     public int Id { get; set; }
-    public string Nome { get; set; }
-    public uint Votos { get; set; }
+    public string Name { get; set; }
+    public uint VoteQty { get; set; }
 }

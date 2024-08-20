@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BBQueue;
 
-public class VotosContext: DbContext
+public class VotesContext: DbContext
 {
-    public VotosContext(DbContextOptions options) : base(options)
+    public VotesContext(DbContextOptions options) : base(options)
     {
     }
 
-    public DbSet<Participante> Participantes { get; set; }
+    public DbSet<Contestant> Contestants { get; set; }
 }

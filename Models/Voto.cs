@@ -1,6 +1,6 @@
 ﻿namespace BBQueue.Models;
 
-public record Voto
+public record Vote
 {
-    public int ParticipanteId { get; set; }
+    public int ContestantId { get; set; }
 }

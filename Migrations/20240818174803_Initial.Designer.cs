@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BBQueue.Migrations
 {
-    [DbContext(typeof(VotosContext))]
+    [DbContext(typeof(VotesContext))]
     [Migration("20240818174803_Initial")]
     partial class Initial
     {
