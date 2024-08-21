@@ -4,8 +4,8 @@ GET https://examples.http-client.intellij.net/get
 
 ### POST request to add votes
 
-POST http://localhost:8080/api/votos HTTP/1.1
+POST http://localhost:8080/api/votes HTTP/1.1
 Content-Type: application/json
 
-{"ParticipanteId":1}
+{"ContestantId":1}
 
